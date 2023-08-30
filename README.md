@@ -74,8 +74,18 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
     - Create react app
     - Configure TailwindCSS
     - Header
+    - Routing
     - Login form
     - Sign up form
+    - Form validation
+    - useRef hook
+    - Firebase setup
+    - Deploying our app to production
+    - Create sign up user account
+    - Implement sign in user api
+    - Created Redux store with userSlice
+    - Implemented sign out
+    - Fetch from TMDB Movies
 
 # Features
     - Login signup page
