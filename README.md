@@ -73,6 +73,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 # Netflix-GPT
     - Create react app
     - Configure TailwindCSS
+    - Header
+    - Login form
+    - Sign up form
+
 # Features
     - Login signup page
         - Sign in/ Sign up form
