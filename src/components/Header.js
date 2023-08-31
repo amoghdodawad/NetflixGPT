@@ -1,19 +1,51 @@
-import React from 'react';
-import { signOut } from 'firebase/auth';
+import React, { useEffect } from 'react';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../utils/firebase';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addUser, removeUser } from '../utils/userSlice';
+import { NETFLIX_LOGO } from '../utils/constants';
+import { clearMovie } from '../utils/movieSlice';
 
 const Header = () => {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const user = useSelector((store) => store.user);
+
+    useEffect(()=>{
+        // console.log('Changed');
+        const unSubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+              // User is signed in, see docs for a list of available properties
+              // https://firebase.google.com/docs/reference/js/auth.user
+              const { uid, email, displayName} = user;
+              dispatch(addUser({
+                uid : uid,
+                email : email,
+                displayName : displayName
+              }));
+                navigate('/browse');
+              // ...
+            } else {
+              // User is signed out
+              // ...
+              dispatch(removeUser());
+              navigate('/');
+            }
+          });
+          
+          return () => {
+            unSubscribe();
+          }
+    },[])
 
     const handleSignOut = () =>{
         signOut(auth).then(() => {
             // Sign-out successful.
             console.log('Logged out');
-            navigate('/');
+            dispatch(clearMovie());
+            // navigate('/');
           }).catch((error) => {
             // An error happened.
             console.log(error);
@@ -21,11 +53,11 @@ const Header = () => {
     }
 
     return (
-        <div className='absolute w-screen bg-gradient-to-b from-black z-10 flex justify-between'>
-            <img src='https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png' alt='logo' className='w-40'></img>
+        <div className='absolute w-screen bg-gradient-to-br from-black z-10 flex justify-between'>
+            <img src={NETFLIX_LOGO} alt='logo' className='w-40'></img>
             
             {user && <div className='flex justify-center items-center'>
-                <div className='flex items-center mx-4 bg-transparent'>
+                <div className='hidden sm:flex items-center mx-4 bg-transparent text-white'>
                     Hello {user.displayName}
                 </div>
                 <button className='text-black bg-red-500 p-4' value={'Sign out'} onClick={handleSignOut}>Sign out</button>
@@ -34,4 +66,4 @@ const Header = () => {
     );
 }
 
-export default Header
+export default Header;

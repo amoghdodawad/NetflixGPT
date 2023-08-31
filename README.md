@@ -85,6 +85,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
     - Implement sign in user api
     - Created Redux store with userSlice
     - Implemented sign out
+    - BugFix : If the user is not logged in then redirect appropriately
+    - Unsubscribed to onAuthStateChanged callback
     - Fetch from TMDB Movies
 
 # Features
