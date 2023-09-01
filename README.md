@@ -88,6 +88,11 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
     - BugFix : If the user is not logged in then redirect appropriately
     - Unsubscribed to onAuthStateChanged callback
     - Fetch from TMDB Movies
+    - Custom hooks for playing movies
+    - Create movieSlice and update accordingly
+    - Create main and secondary container
+    - Fetch data for trailer video
+    - Embedded the youtube video
 
 # Features
     - Login signup page
