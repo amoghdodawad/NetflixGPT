@@ -6,7 +6,7 @@ const MovieList = ({ title, movies }) => {
     if(!movies) return;
     return (
         <div className='p-4 bg-gradient-to-t from-black'>
-            <h1 className='text-3xl font-bold text-white'>{title}</h1>
+            <h1 className='sm:text-3xl text-xl font-bold text-white'>{title}</h1>
             <div className='flex no-scrollbar overflow-x-scroll m-2'>
                 <div className='flex'>
                     {movies.map((movie) => <MovieCard key={movie.id} movie={movie}/>)}
