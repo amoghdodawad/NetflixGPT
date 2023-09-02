@@ -18,16 +18,14 @@ const GptSearchBar = () => {
     const handleGptSearchClick = () => {
         const gptQuery = 'Act as a movie recommendation and suggest some movies for the query : ' + searchText.current.value + '. Give me the names of only 5 movies, comma seperated, like the example result given ahead. Example result : Gadar, Sholay, Don, Golmaal, Koi Mil Gaya';
         async function main() {
-            // const GptSearchResults = await openai.chat.completions.create({
-            //   messages: [{ role: 'user', content: gptQuery }],
-            //   model: 'gpt-3.5-turbo',
-            // });
-            const GptSearchResults = 'Gadar, Sholay, Don, Golmaal, Koi Mil Gaya';
+            const GptSearchResults = await openai.chat.completions.create({
+              messages: [{ role: 'user', content: gptQuery }],
+              model: 'gpt-3.5-turbo',
+            });
             if(!GptSearchResults){
                 console.log('Unable to fetch');
             }
-            // const GptMovies = GptSearchResults.choices[0].message?.content.split(',');
-            const GptMovies = GptSearchResults.split(',');
+            const GptMovies = GptSearchResults.choices[0].message?.content.split(',');
             const promiseArray = GptMovies.map((movie) => searchTmdbMovies(movie));
             const movieDetails = await Promise.all(promiseArray);
             dispatch(addGptMovieResults({gptMoviesTitle : GptMovies, gptMoviesDetails : movieDetails}));
