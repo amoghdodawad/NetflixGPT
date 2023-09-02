@@ -38,7 +38,6 @@ const Login = () => {
                     // Signed in 
                     const user = userCredential.user;
                     // ...
-                    console.log(user);
                     updateProfile(user, {
                         displayName: name.current.value
                     })

@@ -1,14 +1,13 @@
 import React from 'react';
-import { IMG_CDN_URL } from '../utils/constants';
+import { DEFAULT_IMG_URL, IMG_CDN_URL } from '../utils/constants';
 
 const MovieCard = (movie) => {
-    // console.log(movie);
-    console.log('called');
     const poster_path = movie.movie.poster_path;
+    
     return (
-        <div className='w-40 my-2 mx-3 hover:scale-110 transition overflow-hidden'>
-            <img className='' alt='Movie logo'
-             src={IMG_CDN_URL+poster_path}
+        <div className='w-40 my-2 mx-3 hover:scale-110 hover:cursor-pointer transition overflow-hidden '>
+            <img className='hover:scale-110 overflow-hidden transition text-center bg-orange-600 bg-opacity-25 h-full' alt={movie.movie.original_title}
+             src={poster_path ? IMG_CDN_URL+poster_path : null}
             ></img>
         </div>
     );

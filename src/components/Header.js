@@ -4,6 +4,7 @@ import { auth } from '../utils/firebase';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser, removeUser } from '../utils/userSlice';
+import { toggleGptSearchView } from '../utils/gptSlice';
 import { NETFLIX_LOGO } from '../utils/constants';
 import { clearMovie } from '../utils/movieSlice';
 
@@ -12,9 +13,9 @@ const Header = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector((store) => store.user);
+    const isGptSearchShowed = useSelector(store => store.gpt.showGptSearch);
 
     useEffect(()=>{
-        // console.log('Changed');
         const unSubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
               // User is signed in, see docs for a list of available properties
@@ -43,13 +44,16 @@ const Header = () => {
     const handleSignOut = () =>{
         signOut(auth).then(() => {
             // Sign-out successful.
-            console.log('Logged out');
             dispatch(clearMovie());
             // navigate('/');
           }).catch((error) => {
             // An error happened.
             console.log(error);
           });
+    }
+
+    const handleGPTSearch = () => {
+      dispatch(toggleGptSearchView());
     }
 
     return (
@@ -60,7 +64,8 @@ const Header = () => {
                 <div className='hidden sm:flex items-center mx-4 bg-transparent text-white'>
                     Hello {user.displayName}
                 </div>
-                <button className='text-black bg-red-500 p-4' value={'Sign out'} onClick={handleSignOut}>Sign out</button>
+                <button className='text-white mx-2' onClick={handleGPTSearch}>{isGptSearchShowed ? 'Home' : 'GPT Search'}</button>
+                <button className='text-white bg-black p-4' value={'Sign out'} onClick={handleSignOut}>Sign out</button>
             </div>}
         </div>
     );

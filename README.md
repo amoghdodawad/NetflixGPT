@@ -93,6 +93,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
     - Create main and secondary container
     - Fetch data for trailer video
     - Embedded the youtube video
+    - GPT search page
+    - GPT search bar
 
 # Features
     - Login signup page
