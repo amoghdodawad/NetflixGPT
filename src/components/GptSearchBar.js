@@ -34,13 +34,13 @@ const GptSearchBar = () => {
     }
 
     return (
-            <div className='pt-20 flex justify-center items-center'>
-                <form className='my-2' onSubmit={(event) => {
+            <div className='pt-20 flex justify-center items-center overflow-hidden'>
+                <form className='my-2 overflow-hidden' onSubmit={(event) => {
                     event.preventDefault();
                     handleGptSearchClick();
                 }}>
-                    <div className='rounded-lg bg-amber-200 bg-opacity-25 shadow-lg flex flex-wrap items-center justify-center'>
-                        <input ref={searchText} type='text' placeholder='What would you like to watch?' className='py-4 sm:px-20 px-8 my-4 mx-8 border border-black rounded-md text-left text-2xl'></input>
+                    <div className='rounded-lg bg-amber-200 bg-opacity-25 shadow-lg flex flex-wrap items-center justify-center overflow-hidden'>
+                        <input ref={searchText} type='text' placeholder='Search here...' className='py-4 sm:px-20 px-8 my-4 sm:mx-8 mx-2 border border-black rounded-md text-left text-2xl'></input>
                         <button type='submit' className='border border-black py-4 px-3 my-4 mx-8 rounded-md text-2xl bg-red-700 text-white bg-opacity-100 hover:bg-opacity-90 transition-colors'>Search</button>
                     </div>
                 </form>
