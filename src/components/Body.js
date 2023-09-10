@@ -1,30 +1,19 @@
 import Login from './Login';
 import Browse from './Browse';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, BrowserRouter, Route, Routes } from 'react-router-dom';
 import MoviePage from './MoviePage';
 
 const Body = () => {
 
-    const appRouter = createBrowserRouter([
-        {
-            path : '/',
-            element : <Login/>
-        },
-        {
-            path : '/browse',
-            element : <Browse/>
-        },
-        {
-            path : '/movie/:movieId',
-            element : <MoviePage/>
-        }
-    ]);
-    
     return (
-        <>
-            <RouterProvider router={appRouter}/>
-        </>
-    )
+        <BrowserRouter>
+            <Routes>
+                <Route path='/' element={<Login/>}/>
+                <Route path='/browse' element={<Browse/>}/>
+                <Route path='/movie/:movieId' element={<MoviePage/>}/>
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default Body;
