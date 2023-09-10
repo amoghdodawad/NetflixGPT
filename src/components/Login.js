@@ -90,8 +90,8 @@ const Login = ({ changeStatus }) => {
             )
                 .then((userCredential) => {
                     // Signed in 
-                    console.log('Sign up successful');
-                    console.log('trued');
+                    // console.log('Sign up successful');
+                    // console.log('trued');
                     if(!localStorage.getItem('isLoggedIn')){
                         localStorage.setItem('isLoggedIn','true');
                     }

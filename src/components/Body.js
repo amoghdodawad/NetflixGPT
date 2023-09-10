@@ -7,11 +7,11 @@ import { useState } from 'react';
 import UnProtected from './UnProtected';
 
 const Body = () => {
-    console.log(localStorage.getItem('isLoggedIn'));
+    // console.log(localStorage.getItem('isLoggedIn'));
     const [ isLoggedIn, setIsLoggedIn ] = useState(localStorage.getItem('isLoggedIn') === 'true' ? true : false);
-    console.log(isLoggedIn);
+    // console.log(isLoggedIn);
     const changeStatus = (status) => {
-        console.log(isLoggedIn,status);
+        // console.log(isLoggedIn,status);
         setIsLoggedIn(status);
     }
     return (
