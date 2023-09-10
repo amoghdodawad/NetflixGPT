@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Header from './Header';
 import useNowPlayingMovies from '../hooks/useNowPlayingMovies';
 import usePopularMovies from '../hooks/usePopularMovies';
@@ -14,10 +14,6 @@ const Browse = ({ changeStatus }) => {
     usePopularMovies();
     useTopRatedMovies();
     useUpcomingMovies();
-    useEffect(()=>{
-        // console.log('trued');
-        // changeStatus(true);
-    })
     const shouldShowGptSearch = useSelector((store) => store.gpt.showGptSearch);
     if(shouldShowGptSearch === null) return;
 

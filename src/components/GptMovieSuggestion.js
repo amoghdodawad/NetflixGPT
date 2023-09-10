@@ -7,8 +7,6 @@ const GptMovieSuggestion = () => {
     if(gpt === null) return;
     const { gptMoviesDetails, gptMoviesTitle } = gpt;
     if(!gptMoviesDetails || !gptMoviesTitle) return;
-    // console.log(gptMoviesTitle);
-    // console.log(gptMoviesDetails);
     return (
         <div className='p-4 m-4 bg-black text-white bg-opacity-80'>
             <div>

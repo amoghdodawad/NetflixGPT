@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../utils/firebase';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser, removeUser } from '../utils/userSlice';
 import { clearGptPageBeforeLogOut, toggleGptSearchView } from '../utils/gptSlice';
@@ -18,22 +18,12 @@ const Header = ({ changeStatus }) => {
     useEffect(()=>{
         const unSubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
-              // User is signed in, see docs for a list of available properties
-              // https://firebase.google.com/docs/reference/js/auth.user
               const { uid, email, displayName} = user;
               dispatch(addUser({
                 uid : uid,
                 email : email,
                 displayName : displayName
               }));
-                // navigate('/browse');
-              // ...
-            } else {
-              // User is signed out
-              // ...
-              // dispatch(removeUser());
-              // navigate('/');
-              // <Navigate to='/' replace/>
             }
           });
           
@@ -44,8 +34,6 @@ const Header = ({ changeStatus }) => {
 
     const handleSignOut = () =>{
         signOut(auth).then(() => {
-            // Sign-out successful.
-            // console.log('falsed');
             localStorage.setItem('isLoggedIn','false');
             changeStatus(false);
             dispatch(clearMovie());

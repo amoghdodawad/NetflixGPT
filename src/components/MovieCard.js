@@ -1,5 +1,5 @@
 import React from 'react';
-import { DEFAULT_IMG_URL, IMG_CDN_URL } from '../utils/constants';
+import { IMG_CDN_URL } from '../utils/constants';
 import { Link } from 'react-router-dom';
 
 const MovieCard = (movie) => {
