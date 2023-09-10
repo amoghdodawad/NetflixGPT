@@ -4,13 +4,16 @@ import { checkValidData } from '../utils/validate';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../utils/firebase';
 import { addUser } from '../utils/userSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { BACKGROUND_IMAGE } from '../utils/constants';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const Login = ({ changeStatus }) => {
     const [ isSignInForm, setIsSignInForm] = useState(true);
     const [ errorMessage, setErrorMessage ] = useState(null);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const user = useSelector(store => store.user);
 
     const handleFormTypeChange = () => {
         setIsSignInForm(!isSignInForm);
@@ -21,8 +24,17 @@ const Login = ({ changeStatus }) => {
     const password = useRef (null);
 
     useEffect(()=>{
-        changeStatus(false);
-    })
+        // console.log('falsed');
+        // changeStatus(false);
+        // console.log(user);
+        // if(user){
+        //     console.log('trued');
+        //     changeStatus(true);
+        // } else {
+        //     console.log('falsed');
+        //     changeStatus(false);
+        // }
+    },[])
 
     const handleButtonClick = () => {
         const response = checkValidData(email.current.value ,password.current.value);
@@ -52,6 +64,11 @@ const Login = ({ changeStatus }) => {
                             email : email,
                             displayName : displayName
                         }));
+                        console.log('Sign up successful');
+                        navigate('/browse');
+                        // <Navigate replace to='/browse'/>
+                        // console.log('trued');
+                        localStorage.setItem('isLoggedIn','true');
                         changeStatus(true);
                     })
                     .catch((error)=>{
@@ -73,7 +90,15 @@ const Login = ({ changeStatus }) => {
             )
                 .then((userCredential) => {
                     // Signed in 
+                    console.log('Sign up successful');
+                    console.log('trued');
+                    if(!localStorage.getItem('isLoggedIn')){
+                        localStorage.setItem('isLoggedIn','true');
+                    }
                     changeStatus(true);
+                    localStorage.setItem('isLoggedIn','true')
+                    navigate('/browse');
+                    // <Navigate replace to='/browse'/>
                 })
                 .catch((error) => {
                     const errorCode = error.code;

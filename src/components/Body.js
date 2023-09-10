@@ -4,21 +4,28 @@ import { createBrowserRouter, RouterProvider, BrowserRouter, Route, Routes } fro
 import MoviePage from './MoviePage';
 import Protected from './Protected';
 import { useState } from 'react';
+import UnProtected from './UnProtected';
 
 const Body = () => {
-    const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+    console.log(localStorage.getItem('isLoggedIn'));
+    const [ isLoggedIn, setIsLoggedIn ] = useState(localStorage.getItem('isLoggedIn') === 'true' ? true : false);
+    console.log(isLoggedIn);
     const changeStatus = (status) => {
-        console.log(status,isLoggedIn);
+        console.log(isLoggedIn,status);
         setIsLoggedIn(status);
     }
     return (
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={
-                    <Login changeStatus={changeStatus}/>
+                    <UnProtected isLoggedIn={isLoggedIn}>
+                        <Login changeStatus={changeStatus}/>
+                    </UnProtected>
                 }/>
                 <Route path='/browse' element={
-                    <Browse changeStatus={changeStatus}/>
+                    <Protected isLoggedIn={isLoggedIn}>
+                        <Browse changeStatus={changeStatus}/>
+                    </Protected>   
                 }/>
                 <Route path='/movie/:movieId' element={
                     <Protected isLoggedIn={isLoggedIn}>

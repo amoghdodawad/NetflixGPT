@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../utils/firebase';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser, removeUser } from '../utils/userSlice';
-import { toggleGptSearchView } from '../utils/gptSlice';
+import { clearGptPageBeforeLogOut, toggleGptSearchView } from '../utils/gptSlice';
 import { NETFLIX_LOGO } from '../utils/constants';
 import { clearMovie } from '../utils/movieSlice';
 
@@ -26,13 +26,14 @@ const Header = ({ changeStatus }) => {
                 email : email,
                 displayName : displayName
               }));
-                navigate('/browse');
+                // navigate('/browse');
               // ...
             } else {
               // User is signed out
               // ...
-              dispatch(removeUser());
-              navigate('/');
+              // dispatch(removeUser());
+              // navigate('/');
+              // <Navigate to='/' replace/>
             }
           });
           
@@ -44,9 +45,13 @@ const Header = ({ changeStatus }) => {
     const handleSignOut = () =>{
         signOut(auth).then(() => {
             // Sign-out successful.
+            // console.log('falsed');
+            localStorage.setItem('isLoggedIn','false');
             changeStatus(false);
             dispatch(clearMovie());
-            // navigate('/');
+            dispatch(removeUser());
+            dispatch(clearGptPageBeforeLogOut());
+            navigate('/');
           }).catch((error) => {
             // An error happened.
             console.log(error);

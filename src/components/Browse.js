@@ -15,7 +15,8 @@ const Browse = ({ changeStatus }) => {
     useTopRatedMovies();
     useUpcomingMovies();
     useEffect(()=>{
-        changeStatus(true);
+        // console.log('trued');
+        // changeStatus(true);
     })
     const shouldShowGptSearch = useSelector((store) => store.gpt.showGptSearch);
     if(shouldShowGptSearch === null) return;
