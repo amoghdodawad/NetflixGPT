@@ -26,6 +26,7 @@ const MoviePage = () => {
         async function main(){
             const data = await fetch('https://api.themoviedb.org/3/movie/'+movieId,API_OPTIONS);
             const json = await data.json();
+            console.log(json);
             setPosterPath(json.poster_path);
             setDescription(json.overview);
             setTitle(json.original_title);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from './Header';
 import useNowPlayingMovies from '../hooks/useNowPlayingMovies';
 import usePopularMovies from '../hooks/usePopularMovies';
@@ -9,11 +9,14 @@ import SecondaryContainer from './SecondaryContainer';
 import GPTSearchPage from './GPTSearchPage';
 import { useSelector } from 'react-redux';
 
-const Browse = () => {
+const Browse = ({ changeStatus }) => {
     useNowPlayingMovies();
     usePopularMovies();
     useTopRatedMovies();
     useUpcomingMovies();
+    useEffect(()=>{
+        changeStatus(true);
+    })
     const shouldShowGptSearch = useSelector((store) => store.gpt.showGptSearch);
     if(shouldShowGptSearch === null) return;
 
@@ -27,7 +30,7 @@ const Browse = () => {
                     - MovieList * n
                     - Cards * n
             */}
-            <Header/>
+            <Header changeStatus={changeStatus}/>
             {shouldShowGptSearch ? (
                 <>
                     <GPTSearchPage/>

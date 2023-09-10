@@ -8,7 +8,7 @@ import { toggleGptSearchView } from '../utils/gptSlice';
 import { NETFLIX_LOGO } from '../utils/constants';
 import { clearMovie } from '../utils/movieSlice';
 
-const Header = () => {
+const Header = ({ changeStatus }) => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -44,6 +44,7 @@ const Header = () => {
     const handleSignOut = () =>{
         signOut(auth).then(() => {
             // Sign-out successful.
+            changeStatus(false);
             dispatch(clearMovie());
             // navigate('/');
           }).catch((error) => {

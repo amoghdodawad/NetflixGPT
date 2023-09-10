@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Header from './Header';
 import { checkValidData } from '../utils/validate';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
@@ -7,7 +7,7 @@ import { addUser } from '../utils/userSlice';
 import { useDispatch } from 'react-redux';
 import { BACKGROUND_IMAGE } from '../utils/constants';
 
-const Login = () => {
+const Login = ({ changeStatus }) => {
     const [ isSignInForm, setIsSignInForm] = useState(true);
     const [ errorMessage, setErrorMessage ] = useState(null);
     const dispatch = useDispatch();
@@ -19,6 +19,10 @@ const Login = () => {
     const name = useRef(null);
     const email = useRef(null);
     const password = useRef (null);
+
+    useEffect(()=>{
+        changeStatus(false);
+    })
 
     const handleButtonClick = () => {
         const response = checkValidData(email.current.value ,password.current.value);
@@ -48,6 +52,7 @@ const Login = () => {
                             email : email,
                             displayName : displayName
                         }));
+                        changeStatus(true);
                     })
                     .catch((error)=>{
                         setErrorMessage(error.message);
@@ -68,6 +73,7 @@ const Login = () => {
             )
                 .then((userCredential) => {
                     // Signed in 
+                    changeStatus(true);
                 })
                 .catch((error) => {
                     const errorCode = error.code;
